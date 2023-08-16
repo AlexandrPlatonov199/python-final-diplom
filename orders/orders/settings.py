@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ordering_goods.apps.OrderingGoodsConfig',
     'users_auth.apps.UsersAuthConfig',
+    'create_orders.apps.CreateOrdersConfig',
 ]
 
 MIDDLEWARE = [
