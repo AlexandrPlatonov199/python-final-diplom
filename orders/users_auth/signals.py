@@ -24,7 +24,7 @@ def user_is_registered_signal(user_id, **kwargs):
 @receiver(reset_password_token_created)
 def reset_token_created(sender, instance, reset_password_token, **kwargs):
     msg = EmailMultiAlternatives(
-        f"Токен для сброса пароля для {reset_password_token.user}",
+        f"Токен для подверждения электронной почты {reset_password_token.user}",
         reset_password_token.key,
         settings.EMAIL_HOST_USER,
         [reset_password_token.user.email]
