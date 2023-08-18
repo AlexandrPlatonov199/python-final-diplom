@@ -6,7 +6,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from .serializers import UserSerializer
 from .signals import user_is_registered
-from .models import ConfirmEmailToken
+from .models import *
+from rest_framework import viewsets
 
 
 class UserRegister(APIView):
@@ -64,32 +65,22 @@ class UserLogin(APIView):
         return JsonResponse({'status': False, 'Errors': 'Не указаны все необходимые агрументы'})
 
 
-class UserDetails(APIView):
-    def get(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'status': False, 'Errors': 'Необходимо авторизоваться'})
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+class UserDetailsSet(viewsets.ModelViewSet):
 
-    def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
             return JsonResponse({'status': False, 'Errors': 'Необходимо авторизоваться'})
-        if 'password' in request.data:
+        if 'password' in self.request.data:
             errors = {}
             try:
-                validate_password(request.data['password'])
+                validate_password(self.request.data['password'])
             except Exception as password_error:
+
                 errors_array = []
-                # noinspection PyTypeChecker
                 for item in password_error:
                     errors_array.append(item)
                 return JsonResponse({'status': False, 'Errors': {'password': errors_array}})
             else:
-                request.user.set_password(request.data['password'])
-
-        serializer = UserSerializer(request.user, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse({'status': True})
-        else:
-            return JsonResponse({'status': False, 'Errors': serializer.errors})
+                self.request.user.set_password(self.request.data['password'])
+        return User.objects.all()
+    serializer_class = UserSerializer
