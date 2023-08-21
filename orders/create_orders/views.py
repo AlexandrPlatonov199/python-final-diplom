@@ -21,20 +21,20 @@ from .serializers import *
                          request=ContactSerializer,
                          examples=[OpenApiExample("Пример добавления контактов пользователя",
                                                   value=
-                                                  {
-                                                      'city': 'Ногинск',
-                                                      'street': '3 Интернационала',
-                                                      'house': '185',
-                                                      'building': '2',
-                                                      'apartment': '45',
-                                                      'phone': '+7 977 800 70 52'
-                                                  }, status_codes=[str(status.HTTP_201_CREATED)])]),
+                                                    {
+                                                        'city': 'Ногинск',
+                                                        'street': '3 Интернационала',
+                                                        'house': '185',
+                                                        'building': '2',
+                                                        'apartment': '45',
+                                                        'phone': '+7 977 800 70 52'
+                                                    }, status_codes=[str(status.HTTP_201_CREATED)])]),
     partial_update=extend_schema(summary='Частичное изменение контактов',
-                                 examples=[OpenApiExample("На примере изменения номера телефона",
-                                                          value=
-                                                          {
-                                                              'phone': '+7 999 999 99 99'
-                                                          }, status_codes=[str(status.HTTP_201_CREATED)])]),
+                         examples=[OpenApiExample("На примере изменения номера телефона",
+                         value=
+                        {
+                            'phone': '+7 999 999 99 99'
+                        }, status_codes=[str(status.HTTP_201_CREATED)])]),
     list=extend_schema(summary='Получение списка контактов'),
     retrieve=extend_schema(summary='Получение контактных данных пользователя по id'),
     destroy=extend_schema(summary='Удаление контактных данных пользователя по id'))
