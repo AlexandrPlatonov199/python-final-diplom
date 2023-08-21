@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import viewsets, status
 from rest_framework.authtoken.models import Token
@@ -116,6 +117,7 @@ class UserLogin(CreateAPIView):
 class UserDetailsSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
 
     @extend_schema(summary='Частичное изменение параметров пользователя',
                    description='Указать id пользователя и значение изменяемого параметра',

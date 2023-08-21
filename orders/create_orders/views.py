@@ -3,6 +3,7 @@ import ujson
 from django.db.models import Q, F, Sum
 from django.db import IntegrityError
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
@@ -38,6 +39,7 @@ from .serializers import *
     retrieve=extend_schema(summary='Получение контактных данных пользователя по id'),
     destroy=extend_schema(summary='Удаление контактных данных пользователя по id'))
 class ContactViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
     http_method_names = ['get', 'post', 'patch', 'delete', ]
@@ -69,6 +71,7 @@ class ContactViewSet(ModelViewSet):
 
 @extend_schema(tags=['Заказы'])
 class BasketView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         basket = Order.objects.filter(
@@ -147,6 +150,7 @@ class BasketView(APIView):
 
 @extend_schema(tags=['Заказы'])
 class OrderView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         if {'order_id', 'contact'}.issubset(request.data):
@@ -173,6 +177,7 @@ class OrderView(APIView):
 
 @extend_schema(tags=['Заказы'])
 class PartnerOrders(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         if request.user.type != 'shop':
@@ -195,6 +200,7 @@ class PartnerOrders(APIView):
                          examples=[OpenApiExample('Пример смены статуса поставщика',
                                                   value={'state': 'on'})]))
 class PartnerStateSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Shop.objects.all()
     serializer_class = ShopSerializer
     http_method_names = ['post', 'get']

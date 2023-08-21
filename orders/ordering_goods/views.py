@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.response import Response
@@ -13,18 +14,21 @@ from .tasks import price_loader
 
 @extend_schema(tags=['Поставщики'])
 class CategoryView(ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
 @extend_schema(tags=['Поставщики'])
 class ShopView(ListAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Shop.objects.filter(state=True)
     serializer_class = ShopSerializer
 
 
 @extend_schema(tags=['Поставщики'])
 class ProductInfoView(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         query = Q(shop__state=True)
@@ -51,6 +55,7 @@ class ProductInfoView(APIView):
                                                 value={'url': 'https://raw.githubusercontent.com/sasaa19910/python-final-diplom/master/data/shop1.yaml'},
                                                 status_codes=[str(status.HTTP_201_CREATED)])]))
 class PartnerUpdateAPIVIew(CreateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ShopSerializer
 
     def post(self, request, *args, **kwargs):
