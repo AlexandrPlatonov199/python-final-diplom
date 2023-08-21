@@ -1,81 +1,76 @@
 from distutils.util import strtobool
-
 import ujson
-from django.http import JsonResponse
 from django.db.models import Q, F, Sum
 from django.db import IntegrityError
+from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiExample
 from ordering_goods.models import Shop
 from ordering_goods.serializers import ShopSerializer
 from .models import *
 from .signals import *
 from .serializers import *
-from rest_framework.viewsets import ModelViewSet
 
 
-class ContactView(APIView):
-    def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'status': False, 'Error': 'Необходимо авторизоваться'})
+@extend_schema(tags=['Пользователи'])
+@extend_schema_view(
+    create=extend_schema(summary='Добавление контактов пользователя',
+                         request=ContactSerializer,
+                         examples=[OpenApiExample("Пример добавления контактов пользователя",
+                                                  value=
+                                                  {
+                                                      'city': 'Ногинск',
+                                                      'street': '3 Интернационала',
+                                                      'house': '185',
+                                                      'building': '2',
+                                                      'apartment': '45',
+                                                      'phone': '+7 977 800 70 52'
+                                                  }, status_codes=[str(status.HTTP_201_CREATED)])]),
+    partial_update=extend_schema(summary='Частичное изменение контактов',
+                                 examples=[OpenApiExample("На примере изменения номера телефона",
+                                                          value=
+                                                          {
+                                                              'phone': '+7 999 999 99 99'
+                                                          }, status_codes=[str(status.HTTP_201_CREATED)])]),
+    list=extend_schema(summary='Получение списка контактов'),
+    retrieve=extend_schema(summary='Получение контактных данных пользователя по id'),
+    destroy=extend_schema(summary='Удаление контактных данных пользователя по id'))
+class ContactViewSet(ModelViewSet):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    http_method_names = ['get', 'post', 'patch', 'delete', ]
 
-        if {'city', 'street', 'phone'}.issubset(request.data):
-            request.data._mutable = True
-            request.data.update({'user': request.user.id})
-            serializer = ContactSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return JsonResponse({'status': True})
-            else:
-                return JsonResponse({'status': False, 'Error': serializer.errors})
-        return JsonResponse({'status': False, 'Errors': 'Не указаны все необходимые аргументы'})
+    def create(self, request, *args, **kwargs):
+        request.data.update({'user': request.user.id})
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'status': True}, status=201)
 
-    def get(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'status': False, 'Error': 'Необходимо авторизоваться'})
-        contact = Contact.objects.filter(user_id=request.user.id)
-        serializer = ContactSerializer(contact, many=True)
+    def retrieve(self, request, pk=None):
+        cont = Contact.objects.filter(user_id=pk).first()
+        serializer = self.serializer_class(cont)
         return Response(serializer.data)
 
-    def put(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'status': False, 'Error': 'Необходимо авторизоваться'})
-        if 'id' in request.data:
-            if request.data['id'].isdigit():
-                contact = Contact.objects.filter(id=request.data['id'], user_id=request.user.id).first()
-                if contact:
-                    serializer = ContactSerializer(contact, data=request.data, partial=True)
-                    if serializer.is_valid():
-                        serializer.save()
-                        return JsonResponse({'status': True})
-                    else:
-                        return JsonResponse({'status': False, 'Errors': serializer.errors})
-        return JsonResponse({'status': False, 'Error': 'Не указаны все необходимые агрументы'})
+    def partial_update(self, request, pk=None, *args, **kwargs):
+        cont = Contact.objects.filter(user_id=pk).first()
+        serializer = self.serializer_class(cont, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({'status': True}, status=200)
 
-    def delete(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'status': False, 'Error': 'Необходимо авторизоваться'})
-        items_string = request.data.get('items')
-        if items_string:
-            items_list = items_string.split(',')
-            query = Q()
-            objects_deleted = False
-            for contact_id in items_list:
-                if contact_id.isdigit():
-                    query = query | Q(user_id=request.user.id, id=contact_id)
-                    objects_deleted = True
-            if objects_deleted:
-                count = Contact.objects.filter(query).delete()[0]
-                return JsonResponse({'status': True, 'Удалено контактов': count})
-        return JsonResponse({'status': False, 'Error': 'Не указаны все необходимые аргумены'})
+    def destroy(self, request, pk=None, *args, **kwargs):
+        cont = Contact.objects.filter(user_id=pk)
+        self.perform_destroy(cont)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@extend_schema(tags=['Заказы'])
 class BasketView(APIView):
 
     def get(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'Status': False, 'Error': 'Необходимо авторизоваться'})
         basket = Order.objects.filter(
             user_id=request.user.id, state='basket').prefetch_related(
             'ordered_items__product_info__product__category',
@@ -85,14 +80,12 @@ class BasketView(APIView):
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'Status': False, 'Error': 'Необходимо авторизоваться'})
         items_sting = request.data.get('items')
         if items_sting:
             try:
                 items_dict = ujson.loads(items_sting)
             except ValueError:
-                return JsonResponse({'Status': False, 'Errors': 'Неверный формат запроса'})
+                return Response({'Status': False, 'Errors': 'Неверный формат запроса'})
             else:
                 basket, _ = Order.objects.get_or_create(user_id=request.user.id, state='basket')
                 objects_created = 0
@@ -103,23 +96,21 @@ class BasketView(APIView):
                         try:
                             serializer.save()
                         except IntegrityError as error:
-                            return JsonResponse({'Status': False, 'Errors': str(error)})
+                            return Response({'Status': False, 'Errors': str(error)})
                         else:
                             objects_created += 1
                     else:
-                        return JsonResponse({'Status': False, 'Errors': serializer.errors})
-                return JsonResponse({'Status': True, 'Создано объектов': objects_created})
-        return JsonResponse({'Status': False, 'Errors': 'Не указаны все необходимые аргументы'})
+                        return Response({'Status': False, 'Errors': serializer.errors})
+                return Response({'Status': True, 'Создано объектов': objects_created}, status=status.HTTP_201_CREATED)
+        return Response({'Status': False, 'Errors': 'Не указаны все необходимые аргументы'})
 
     def put(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'status': False, 'Error': 'Необходимо авторизоваться'})
         items_string = request.data.get('items')
         if items_string:
             try:
                 items_dict = ujson.loads(items_string)
             except ValueError:
-                return JsonResponse({'status': False, 'Error': 'Не верный формат запроса'})
+                return Response({'status': False, 'Error': 'Не верный формат запроса'})
             else:
                 basket, _ = Order.objects.get_or_create(user_id=request.user.id, state='basket')
                 objects_update = 0
@@ -127,12 +118,10 @@ class BasketView(APIView):
                     if type(order_item['id']) == int and type(order_item['quantity']) == int:
                         objects_update += OrderItem.objects.filter(order_id=basket.id, id=order_item['id']).update(
                             quantity=order_item['quantity'])
-                return JsonResponse({'status': True, 'Обновлено позиций': objects_update})
-        return JsonResponse({'status': False, 'Error': 'Не указаны все необходимые параметры'})
+                return Response({'status': True, 'Обновлено позиций': objects_update})
+        return Response({'status': False, 'Error': 'Не указаны все необходимые параметры'})
 
     def delete(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'status': False, 'Error': 'Необходимо авторизоваться'})
         items_string = request.data.get('items')
         if items_string:
             list_items = items_string.split(',')
@@ -148,47 +137,46 @@ class BasketView(APIView):
                 left_position_count = OrderItem.objects.filter(order_id=basket.id).count()
                 if left_position_count == 0:
                     Order.objects.filter(state='basket', user_id=request.user.id).delete()
-                    return JsonResponse({'status': True, 'Удалено объектов': f'{deleted_positions_count}. '
-                                                                             f'В вашей корзине пусто!'})
-                return JsonResponse({'status': True, 'Удалено объектов': deleted_positions_count})
-        return JsonResponse({'status': False, 'Error': 'Не указаны все необходимые параметры'})
+                    return Response({'status': True, 'Удалено объектов': f'{deleted_positions_count}. '
+                                                                         'В вашей корзине пусто!'},
+                                    status=status.HTTP_204_NO_CONTENT)
+                return Response({'status': True, 'Удалено объектов': deleted_positions_count},
+                                status=status.HTTP_204_NO_CONTENT)
+        return Response({'status': False, 'Error': 'Не указаны все необходимые параметры'})
 
 
+@extend_schema(tags=['Заказы'])
 class OrderView(APIView):
+
     def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'status': False, 'Error': 'Необходимо авторизоваться'})
         if {'order_id', 'contact'}.issubset(request.data):
             try:
                 updated = Order.objects.filter(user_id=request.user.id, id=request.data['order_id']).update(
-                                               contact_id=request.data['contact'], state='new')
+                    contact_id=request.data['contact'], state='new')
             except IntegrityError as error:
-                return JsonResponse({'status': False, 'Error': 'Не верно указаны аругменты'})
+                return Response({'status': False, 'Error': 'Не верно указаны аругменты'})
             else:
                 if updated:
                     order_is_created.send(sender=self.__class__, user_id=request.user.id,
                                           order_id=request.data['order_id'])
-                    return JsonResponse({'status': True})
-        return JsonResponse({'status': False, 'Error': 'Не указаны все необходимые параметры'})
+                    return Response({'status': True})
+        return Response({'status': False, 'Error': 'Не указаны все необходимые параметры'})
 
     def get(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'status': False, 'Error': 'Необходимо авторизоваться'})
         order = Order.objects.filter(user_id=request.user.id).exclude(state='basket').prefetch_related(
             'ordered_items__product_info__product__category',
             'ordered_items__product_info__product_parameters__parameter').select_related('contact').annotate(
-            total_sum=Sum(F('ordered_items__quantity')*F('ordered_items__product_info__price'))).distinct()
+            total_sum=Sum(F('ordered_items__quantity') * F('ordered_items__product_info__price'))).distinct()
         serializer = OrderSerializer(order, many=True)
         return Response(serializer.data)
 
 
+@extend_schema(tags=['Заказы'])
 class PartnerOrders(APIView):
 
     def get(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({'Status': False, 'Error': 'Необходимо авторизоваться'})
         if request.user.type != 'shop':
-            return JsonResponse({'Status': False, 'Error': 'Только для магазинов'})
+            return Response({'Status': False, 'Error': 'Только для магазинов'})
         order = Order.objects.filter(
             ordered_items__product_info__shop__user_id=request.user.id).exclude(state='basket').prefetch_related(
             'ordered_items__product_info__product__category',
@@ -198,11 +186,32 @@ class PartnerOrders(APIView):
         return Response(serializer.data)
 
 
+@extend_schema(tags=['Поставщики'])
+@extend_schema_view(
+    retrieve=extend_schema(
+        summary='Получение статуса поставщика по id'),
+    list=extend_schema(summary='Получение всех активных поставщиков'),
+    create=extend_schema(summary='Смена статуса поставщика',
+                         examples=[OpenApiExample('Пример смены статуса поставщика',
+                                                  value={'state': 'on'})]))
 class PartnerStateSet(ModelViewSet):
-    def get_queryset(self):
-        if not self.request.user.is_authenticated:
-            return JsonResponse({'Status': False, 'Error': 'Необходимо авторизоваться'})
-        if self.request.user.type != 'shop':
-            return JsonResponse({'Status': False, 'Error': 'Только для магазинов'})
-        return Shop.objects.all()
+    queryset = Shop.objects.all()
     serializer_class = ShopSerializer
+    http_method_names = ['post', 'get']
+
+    def list(self, request, *args, **kwargs):
+        queryset = Shop.objects.filter(state=True)
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        if self.request.user.type != 'shop':
+            return Response({'Status': False, 'Error': 'Только для магазинов'})
+        state = request.data.get('state')
+        if state:
+            try:
+                Shop.objects.filter(user_id=request.user.id).update(state=strtobool(state))
+                return Response({'State changed to': state})
+            except ValueError as error:
+                return Response({'Status': False, 'Errors': str(error)})
+        return Response({'Status': False, 'Errors': 'Не указаны все необходимые аргументы'})
