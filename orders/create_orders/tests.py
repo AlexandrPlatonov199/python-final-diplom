@@ -19,7 +19,7 @@ class TestSetUP(APITestCase):
         self.contact_url = 'http://127.0.0.1:8000/api/v1/user/contact/'
         self.price_url = 'https://raw.githubusercontent.com/sasaa19910/python-final-diplom/master/data/shop1.yaml'
         self.auth_token = Token.generate_key()
-        self.credentials = {"email": "gosh20goga@mail.ru", "password": "15wvfus89"}
+        self.credentials = {"email": "gosh20goga@mail.ru", "password": "15Wvfus89"}
         self.user = User.objects.create_user(**self.credentials, is_active=True, type='shop')
         Token.objects.create(key=self.auth_token, user_id=self.user.id)
         self.contacts_data = {
