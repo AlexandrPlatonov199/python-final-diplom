@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c9e8c79e-cb26-49ed-a847-993348255314" name="Changes" comment="migrate addd">
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/create_orders/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/ordering_goods/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/orders/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/orders/orders/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders/users_auth/migrations/0001_initial.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="376b249a-8e3b-4251-b580-3d73f556b9bc" />
+        <option name="url" value="https://github.com/sasaa19910/python-final-diplom.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2U0wNqSLd6ugzHufXIVjNmGFXgu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Alexandr/Desktop/python-final-diplom/orders&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alexandr\Desktop\python-final-diplom\orders" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python tests.Python tests for tests.TestViews.test_basket">
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.TestSetUP (2)" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="python-final-diplom" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/orders/create_orders" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.TestSetUP&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.TestViews (1)" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="python-final-diplom" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/orders/create_orders" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.TestViews&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.TestViews.test_basket" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="python-final-diplom" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/orders/create_orders" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.TestViews.test_basket&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for tests.TestViews.test_price_update" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="python-final-diplom" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/orders/ordering_goods" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;tests.TestViews.test_price_update&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Python tests for tests.TestViews.test_basket" />
+        <item itemvalue="Python tests.Python tests for tests.TestViews (1)" />
+        <item itemvalue="Python tests.Python tests for tests.TestSetUP (2)" />
+        <item itemvalue="Python tests.Python tests for tests.TestViews.test_price_update" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c9e8c79e-cb26-49ed-a847-993348255314" name="Changes" comment="" />
+      <created>1692089769183</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1692089769183</updated>
+    </task>
+    <task id="LOCAL-00001" summary="init: start orders">
+      <created>1692093004744</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1692093004744</updated>
+    </task>
+    <task id="LOCAL-00002" summary="init: create startapp ordering_goods">
+      <created>1692096251482</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1692096251482</updated>
+    </task>
+    <task id="LOCAL-00003" summary="init: create startapp users_auth">
+      <created>1692097924233</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1692097924233</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add models and migrations">
+      <created>1692115850831</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1692115850831</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add views and urls for users_auth">
+      <created>1692171681038</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1692171681038</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add views and urls for users_auth">
+      <created>1692171691625</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1692171691625</updated>
+    </task>
+    <task id="LOCAL-00007" summary="init: create_orders and add models, migrations">
+      <created>1692173438827</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1692173438827</updated>
+    </task>
+    <task id="LOCAL-00008" summary="create views for users_auth">
+      <created>1692176751909</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1692176751909</updated>
+    </task>
+    <task id="LOCAL-00009" summary="create serializers for create_orders, ordering_goods">
+      <created>1692177647600</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1692177647600</updated>
+    </task>
+    <task id="LOCAL-00010" summary="create signals and add views for create_orders">
+      <created>1692178139701</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1692178139701</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add urls">
+      <created>1692178319466</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1692178319466</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add views for ordering_goods">
+      <created>1692179184625</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1692179184625</updated>
+    </task>
+    <task id="LOCAL-00013" summary="update urls">
+      <created>1692179378562</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1692179378562</updated>
+    </task>
+    <task id="LOCAL-00014" summary="create docker file and celery">
+      <created>1692195091343</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1692195091343</updated>
+    </task>
+    <task id="LOCAL-00015" summary="create docker file and celery">
+      <created>1692280456433</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1692280456433</updated>
+    </task>
+    <task id="LOCAL-00016" summary="refactoring to ModelViewSet classes PartnerState and UserDetails">
+      <created>1692361598219</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1692361598219</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add drf_spectacular">
+      <created>1692361724491</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1692361724491</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add drf_spectacular and router">
+      <created>1692606703685</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1692606703685</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add permission">
+      <created>1692607204659</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1692607204660</updated>
+    </task>
+    <task id="LOCAL-00020" summary="add test">
+      <created>1692628709098</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1692628709098</updated>
+    </task>
+    <task id="LOCAL-00021" summary="settings for social auth">
+      <created>1692629106999</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1692629106999</updated>
+    </task>
+    <task id="LOCAL-00022" summary="improvements during testing">
+      <created>1692630491608</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1692630491608</updated>
+    </task>
+    <task id="LOCAL-00023" summary="add django-silk">
+      <created>1692630657018</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1692630657018</updated>
+    </task>
+    <task id="LOCAL-00024" summary="add instruction">
+      <created>1692631205088</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1692631205088</updated>
+    </task>
+    <task id="LOCAL-00025" summary="returned services, command for launching tests">
+      <created>1692631436496</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1692631436496</updated>
+    </task>
+    <task id="LOCAL-00026" summary="returned settings for docker">
+      <created>1692631541286</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1692631541286</updated>
+    </task>
+    <task id="LOCAL-00027" summary="create custom pipeline for social auth">
+      <created>1692631728653</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1692631728653</updated>
+    </task>
+    <task id="LOCAL-00028" summary="migrate">
+      <created>1692691609612</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1692691609612</updated>
+    </task>
+    <task id="LOCAL-00029" summary="migrate">
+      <created>1692691642147</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1692691642147</updated>
+    </task>
+    <task id="LOCAL-00030" summary="migrate addd">
+      <created>1692692241811</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1692692241811</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init: create startapp users_auth" />
+    <MESSAGE value="add models and migrations" />
+    <MESSAGE value="add views and urls for users_auth" />
+    <MESSAGE value="init: create_orders and add models, migrations" />
+    <MESSAGE value="create views for users_auth" />
+    <MESSAGE value="create serializers for create_orders, ordering_goods" />
+    <MESSAGE value="create signals and add views for create_orders" />
+    <MESSAGE value="add urls" />
+    <MESSAGE value="add views for ordering_goods" />
+    <MESSAGE value="update urls" />
+    <MESSAGE value="create docker file and celery" />
+    <MESSAGE value="refactoring to ModelViewSet classes PartnerState and UserDetails" />
+    <MESSAGE value="add drf_spectacular" />
+    <MESSAGE value="add drf_spectacular and router" />
+    <MESSAGE value="add permission" />
+    <MESSAGE value="add test" />
+    <MESSAGE value="settings for social auth" />
+    <MESSAGE value="improvements during testing" />
+    <MESSAGE value="add django-silk" />
+    <MESSAGE value="add instruction" />
+    <MESSAGE value="returned services, command for launching tests" />
+    <MESSAGE value="returned settings for docker" />
+    <MESSAGE value="create custom pipeline for social auth" />
+    <MESSAGE value="migrate" />
+    <MESSAGE value="migrate addd" />
+    <option name="LAST_COMMIT_MESSAGE" value="migrate addd" />
+  </component>
+</project>

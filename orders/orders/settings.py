@@ -55,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.context_processors.backends',
     'silk.middleware.SilkyMiddleware',
 ]
 
@@ -71,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'social_django.context_processors.backends',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -139,8 +139,8 @@ AUTH_USER_MODEL = 'users_auth.User'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_HOST_USER = 'адрес_электронной_почты'
-EMAIL_HOST_PASSWORD = '1JhcBJGDGkiZdAPHb02X'
+EMAIL_HOST_USER = 'gosh20goga@mail.ru'
+EMAIL_HOST_PASSWORD = 'Tw5rjQKG4Ns6rjyzRsJw'
 EMAIL_PORT = '465'
 EMAIL_USE_SSL = True
 SERVER_EMAIL = EMAIL_HOST_USER
